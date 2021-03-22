@@ -1,1 +1,10 @@
-{}
+{
+  "auth": {
+    "mshoppingworld6abd9784": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

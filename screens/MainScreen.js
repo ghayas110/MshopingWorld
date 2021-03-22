@@ -6,12 +6,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SplashScreen from "./SplashScreen";
 import { Button } from "react-native-elements";
-import { StackActions, useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation, useTheme } from "@react-navigation/native";
 
 const MainScreen = (props) => {
 
     const navigation = useNavigation()
-    
+    const { colors } = useTheme()
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barStyle="light-content" />
@@ -19,16 +20,16 @@ const MainScreen = (props) => {
                 <Animatable.Image
                     animation="bounceIn"
                     duraton="1500"
-                    source={require('../assets/ss.png')}
+                    source={require('../assets/logo.png')}
                     style={styles.logo}
                     resizeMode="stretch"
                 />
             </View>
             <View style={styles.footer}>
-                <Button title='Sign Up' type='outline' raised buttonStyle={{borderRadius: 50}} containerStyle={{margin: 20}} 
-                titleStyle={{fontWeight: "bold"}} onPress={() => navigation.dispatch(StackActions.push('signup')) } />
-                <Button title='Sign In' type='outline' raised buttonStyle={{borderRadius: 50}} containerStyle={{margin: 20}} 
-                titleStyle={{fontWeight: "bold"}} onPress={() => navigation.dispatch(StackActions.push('signin', {userEmail: null, username: null})) } />
+                <Button title='Sign Up' type='outline' raised buttonStyle={{ borderRadius: 50 }} containerStyle={{ margin: 20 }}
+                    titleStyle={{ fontWeight: "bold" }} onPress={() => navigation.dispatch(StackActions.push('signup'))} />
+                <Button title='Sign In' type='outline' raised buttonStyle={{ borderRadius: 50 }} containerStyle={{ margin: 20 }}
+                    titleStyle={{ fontWeight: "bold" }} onPress={() => navigation.dispatch(StackActions.push('signin', { userEmail: null, username: null }))} />
             </View>
         </View>
     )

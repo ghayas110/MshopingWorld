@@ -5,24 +5,21 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { connect, useDispatch } from 'react-redux';
-import { StackActions, useNavigation, useRoute } from '@react-navigation/native';
+import { StackActions, useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import * as ActionTypes from '../redux/ActionTypes'
 import { API, Auth, graphqlOperation } from 'aws-amplify';
-import { listUsers } from '../graphql/queries';
+// import { listUsers } from '../graphql/queries';
 
 const SignInScreen = (props) => {
 
     const navigation = useNavigation()
     const route = useRoute()
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        return () => {
-        }
-    }, [])
+    const { colors } = useTheme()
+    // styles({ colors: colors })
 
     const [data, setData] = useState({
-        email: route.params.userEmail !== null ? route.params.userEmail : '',
+        email: '',
         password: '',
         check_textInputChange: false,
         secureTextEntry: true,
@@ -35,21 +32,8 @@ const SignInScreen = (props) => {
             if (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/.test(data.email)) {
                 await Auth.signIn(data.email, data.password)
                     .then(async (user) => {
-                        var val = Object.values(user.attributes)[Object.keys(user.attributes).findIndex((el) => el === 'custom:category')]
-                        const getIdData = await API.graphql(graphqlOperation(listUsers, { filter: { email: { contains: user.attributes.email } } }))
-                        const getId = getIdData.data.listUsers.items
-                        var loggedinUserId = ''
-                        if (getId[0] !== undefined) {
-                            loggedinUserId = getId[0].id
-                        }
-                        dispatch({
-                            type: ActionTypes.ADD_LOGUSER,
-                            payload: { id: loggedinUserId, username: user.username, userEmail: user.attributes.email, phone_number: user.attributes.phone_number, category: val }
-                        })
-                        Auth.currentUserInfo().then((user) => { console.log('elitesignin', val) })
                         navigation.dispatch(StackActions.push('elite'))
                     })
-                // console.log(val)
             }
             else {
                 ToastAndroid.showWithGravity('Email or Password Incorrect!', ToastAndroid.LONG, ToastAndroid.CENTER)
@@ -127,7 +111,7 @@ const SignInScreen = (props) => {
                 }]}
             >
                 <Text style={[styles.text_footer, {
-                    color: "black"
+                    color: colors.text
                 }]}>Email</Text>
                 <View style={styles.action}>
                     <FontAwesome
@@ -157,11 +141,6 @@ const SignInScreen = (props) => {
                         </Animatable.View>
                         : null}
                 </View>
-                {data.isValidUser ? null :
-                    <Animatable.View animation="fadeInLeft" duration={500}>
-                        <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
-                    </Animatable.View>
-                }
 
 
                 <Text style={[styles.text_footer, {
@@ -202,12 +181,6 @@ const SignInScreen = (props) => {
                         }
                     </TouchableOpacity>
                 </View>
-                {data.isValidPassword ? null :
-                    <Animatable.View animation="fadeInLeft" duration={500}>
-                        <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
-                    </Animatable.View>
-                }
-
 
                 <TouchableOpacity onPress={() => navigation.dispatch(StackActions.push('forgot'))}>
                     <Text style={{ color: '#F99B4E', marginTop: 15 }}>Forgot password?</Text>
@@ -226,7 +199,6 @@ const SignInScreen = (props) => {
                             }]}>Sign In</Text>
                         </LinearGradient>
                     </TouchableOpacity>
-
                     <TouchableOpacity
                         onPress={() => navigation.dispatch(StackActions.replace('signup'))}
                         style={[styles.signIn, {
@@ -250,7 +222,7 @@ export default connect()(SignInScreen);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F99B4E'
+        backgroundColor: '#F99B4E',
     },
     header: {
         flex: 1,

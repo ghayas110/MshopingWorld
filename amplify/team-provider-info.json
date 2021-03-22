@@ -10,6 +10,11 @@
       "StackName": "amplify-mshoppingworld-dev-111242",
       "StackId": "arn:aws:cloudformation:us-east-1:510205510413:stack/amplify-mshoppingworld-dev-111242/513a9520-8943-11eb-933c-0e29088293c9",
       "AmplifyAppId": "dn25cbwq7x9ia"
+    },
+    "categories": {
+      "auth": {
+        "mshoppingworld6abd9784": {}
+      }
     }
   }
 }

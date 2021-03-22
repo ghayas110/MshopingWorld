@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { StackActions, useNavigation } from '@react-navigation/native';
-import { Text, View, StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, StatusBar, TouchableOpacity, useColorScheme } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -8,18 +8,20 @@ import { connect, useSelector, useStore } from 'react-redux';
 
 const SplashScreen = (props) => {
 
+    const scheme = useColorScheme()
+
     const navigation = useNavigation();
     const { loggedInUser } = useSelector(state => state)
 
     useEffect(() => {
         console.log('loggedInUser', loggedInUser, typeof (loggedInUser.users), loggedInUser.users.length)
         setTimeout(() => {
-            if (loggedInUser.users.length === undefined) {
-                if (loggedInUser.users.category === 'elite')
-                    navigation.dispatch(StackActions.replace('elite'))
-            }
-            else
-                navigation.dispatch(StackActions.replace('main'))
+            // if (loggedInUser.users.length === undefined) {
+            //     if (loggedInUser.users.category === 'elite')
+            //         navigation.dispatch(StackActions.replace('elite'))
+            // }
+            // else
+            navigation.dispatch(StackActions.replace('main'))
         }, 3000);
     }, [])
     return (
@@ -29,13 +31,13 @@ const SplashScreen = (props) => {
                 <Animatable.Image
                     animation="bounceIn"
                     duraton="1500"
-                    source={require('../assets/ss.png')}
+                    source={require('../assets/logo.png')}
                     style={styles.logo}
                     resizeMode="stretch"
                 />
             </View>
             <View style={styles.footer}>
-                <Text style={styles.title}>Want to Plan an Event</Text>
+                <Text style={styles.title}>Want to Plan an Event {scheme}</Text>
                 <Text style={styles.stitle}>We Eventify are here to Help You</Text>
                 <View style={styles.button}>
                     <TouchableOpacity onPress={() => { }}>

@@ -30,7 +30,6 @@ const ForgotPassword = (props) => {
             await Auth.forgotPassword(data.email)
         } catch (error) {
             console.log('error signing in', error)
-            
         }
     }
 
