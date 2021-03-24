@@ -32,10 +32,11 @@ const SignUpScreen = (props) => {
 
     async function signUp() {
         try {
-            if (checkcon.test(data.email)) {
+            if (checkcon.test(data.email) && checkcon.test(data.referalEmail)) {
                 await Auth.signUp({
                     username: data.email,
                     password: data.password,
+
                     attributes: {
                         email: data.email,          // optional
                         phone_number: data.phone_number,   // optional - E.164 number convention
