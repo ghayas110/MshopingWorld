@@ -9,7 +9,7 @@ import { StackActions, useNavigation } from '@react-navigation/native';
 import { ButtonGroup } from 'react-native-elements';
 /* checkcon has the regex statment to check the email  */
 import { checkcon } from "./reuse";
-// import { createUser, updateUser } from '../graphql/mutations';
+import { createUser, updateUser } from '../graphql/mutations';
 // import { getUser, listUsers } from '../graphql/queries';
 
 const SignUpScreen = (props) => {
