@@ -8,6 +8,8 @@ import { connect, useDispatch } from 'react-redux';
 import { StackActions, useNavigation, useRoute } from '@react-navigation/native';
 import * as ActionTypes from '../redux/ActionTypes'
 import { Auth } from 'aws-amplify';
+/* checkcon has the regex statment to check the email  */
+import { checkcon } from "./reuse";
 
 const ForgotPassword = (props) => {
 
@@ -34,7 +36,7 @@ const ForgotPassword = (props) => {
     }
 
     const textInputChange = (val) => {
-        if (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/.test(val)) {
+        if (checkcon.test(val)) {
             setData({
                 ...data,
                 email: val,

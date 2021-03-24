@@ -8,6 +8,8 @@ import { connect, useDispatch } from 'react-redux';
 import { StackActions, useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import * as ActionTypes from '../redux/ActionTypes'
 import { API, Auth, graphqlOperation } from 'aws-amplify';
+/* checkcon has the regex statment to check the email  */
+import { checkcon } from "./reuse";
 // import { listUsers } from '../graphql/queries';
 
 const SignInScreen = (props) => {
@@ -26,10 +28,11 @@ const SignInScreen = (props) => {
         isValidUser: true,
         isValidPassword: true,
     });
+    
 
     async function signIn() {
         try {
-            if (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/.test(data.email)) {
+            if (checkcon.test(data.email)) {
                 await Auth.signIn(data.email, data.password)
                     .then(async (user) => {
                         navigation.dispatch(StackActions.push('elite'))
@@ -45,7 +48,7 @@ const SignInScreen = (props) => {
     }
 
     const textInputChange = (val) => {
-        if (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/.test(val)) {
+        if (checkcon.test(val)) {
             setData({
                 ...data,
                 email: val,

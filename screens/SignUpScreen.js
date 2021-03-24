@@ -7,6 +7,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import { ButtonGroup } from 'react-native-elements';
+/* checkcon has the regex statment to check the email  */
+import { checkcon } from "./reuse";
 // import { createUser, updateUser } from '../graphql/mutations';
 // import { getUser, listUsers } from '../graphql/queries';
 
@@ -30,7 +32,7 @@ const SignUpScreen = (props) => {
 
     async function signUp() {
         try {
-            if (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/.test(data.email)) {
+            if (checkcon.test(data.email)) {
                 await Auth.signUp({
                     username: data.email,
                     password: data.password,
@@ -55,7 +57,7 @@ const SignUpScreen = (props) => {
     }
 
     const handleReferalEmailAddress = (val) => {
-        if (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/.test(val)) {
+        if (checkcon.test(val)) {
             setData({
                 ...data,
                 referalEmail: val,
@@ -71,7 +73,7 @@ const SignUpScreen = (props) => {
     }
 
     const handleEmailAddress = (val) => {
-        if (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/.test(val)) {
+        if (checkcon.test(val)) {
             setData({
                 ...data,
                 email: val,
