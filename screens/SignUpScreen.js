@@ -45,6 +45,13 @@ const SignUpScreen = (props) => {
                 })
                     .then(async (user) => {
                         console.log(user)
+                        // query for parent id
+                        const parentData = await API.graphql(graphqlOperation(listUsers, { filter: { email: { contains: data.referalEmail } } }))
+                            const parentUser = parentData.data.listUsers.items
+                            console.log('parentUser:', JSON.stringify(parentUser))
+                            const newUser = { username: data.email, email: data.email, phone_number: data.phone_number, category: data.category, parentId: parentUser[0].id }
+                            const createdUser = await API.graphql(graphqlOperation(createUser, { input: newUser }))
+                            console.log('createdResellerUser', createdUser.data)
                         navigation.dispatch(StackActions.push('confirmation'))
                     })
             }
