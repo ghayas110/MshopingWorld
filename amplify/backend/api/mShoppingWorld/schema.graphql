@@ -1,0 +1,18 @@
+type User @model @key(name: "byChildUser", fields: ["parentId"])  {
+  id: ID!
+  username: String!
+  email: String!
+  phone_number: String!
+  category: String!
+  parentId: ID
+}
+
+type Product @model @key(name: "byUser", fields: ["userId"])  {
+  id: ID!
+  userId: ID!
+  user: User! @connection(fields: ["userId"])
+  title: String!
+  description: String!
+  price: Float!
+  quantity: Int!
+}
