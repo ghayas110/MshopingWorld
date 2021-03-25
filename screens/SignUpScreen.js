@@ -17,13 +17,15 @@ const SignUpScreen = (props) => {
     const navigation = useNavigation()
 
     const [data, setData] = React.useState({
+        usercode:'',
+        username:'',
         email: '',
         password: '',
         phone_number: '',
         confirm_password: '',
-        referalEmail: '',
+        referalUserCode: '',
         check_textInputChange: false,
-        check_ReferalEmailChange: false,
+        check_ReferalUserCodeChange: false,
         check_EmailChange: false,
         check_PhoneChange: false,
         secureTextEntry: true,
@@ -180,7 +182,63 @@ const SignUpScreen = (props) => {
                             </Animatable.View>
                             : null}
                     </View>
-
+                    <Text style={[styles.text_footer, {
+                        marginTop: 20
+                    }]}>UserCode</Text>
+                    <View style={styles.action}>
+                        <FontAwesome
+                            name="password-o"
+                            color="#05375a"
+                            size={20}
+                        />
+                        <TextInput
+                            placeholder="Your UserCode"
+                            textContentType='UserCode'
+                            style={styles.textInput}
+                            autoCapitalize="none"
+                            onChangeText={(val) => handleEmailAddress(val)}
+                        />
+                        {data.check_EmailChange ?
+                            <Animatable.View
+                                animation="bounceIn"
+                            >
+                                <Feather
+                                    name="check-circle"
+                                    color="green"
+                                    size={20}
+                                />
+                            </Animatable.View>
+                            : null}
+                    </View>
+                    <Text style={[styles.text_footer, {
+                        marginTop: 20
+                    }]}>UserName</Text>
+                    <View style={styles.action}>
+                        <FontAwesome
+                            name="user-o"
+                            color="#05375a"
+                            size={20}
+                        />
+                        <TextInput
+                            placeholder="Your Username"
+                            textContentType='text'
+                            
+                            style={styles.textInput}
+                            autoCapitalize="none"
+                        
+                        />
+                        {data.check_EmailChange ?
+                            <Animatable.View
+                                animation="bounceIn"
+                            >
+                                <Feather
+                                    name="check-circle"
+                                    color="green"
+                                    size={20}
+                                />
+                            </Animatable.View>
+                            : null}
+                    </View>
                     <Text style={[styles.text_footer, {
                         marginTop: 20
                     }]}>Phone Number</Text>
